@@ -1,0 +1,161 @@
+--Number of rentals, average rental period, and max rental length by user type
+
+SELECT
+  member_casual,
+  COUNT(*) AS number_of_rentals,
+  ROUND(AVG(TIMESTAMP_DIFF(ended_at, started_at, minute))) AS avg_length,
+  MAX(TIMESTAMP_DIFF(ended_at, started_at, minute)) AS max_rental_length
+FROM(
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202206_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202207_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202208_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202209_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202210_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202211_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202212_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202301_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202302_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202303_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202304_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202305_cyclistic_usage_clean`
+)
+GROUP BY
+  member_casual
+
+--Number of rentals, average rental period, and max rental length per day by user type
+
+SELECT 
+  member_casual,
+  EXTRACT(DAYOFWEEK FROM started_at) AS day_num,
+  CASE
+    WHEN EXTRACT(DAYOFWEEK FROM started_at) = 1 THEN 'Sunday'
+    WHEN EXTRACT(DAYOFWEEK FROM started_at) = 2 THEN 'Monday'
+    WHEN EXTRACT(DAYOFWEEK FROM started_at) = 3 THEN 'Tuesday'
+    WHEN EXTRACT(DAYOFWEEK FROM started_at) = 4 THEN 'Wednesday'
+    WHEN EXTRACT(DAYOFWEEK FROM started_at) = 5 THEN 'Thursday'
+    WHEN EXTRACT(DAYOFWEEK FROM started_at) = 6 THEN 'Friday'
+    ELSE 'Saturday'
+  END
+   AS day,
+  COUNT(*) AS number_of_rentals,
+  ROUND(AVG(TIMESTAMP_DIFF(ended_at, started_at, minute))) AS avg_length,
+  MAX(TIMESTAMP_DIFF(ended_at, started_at, minute)) AS max_rental_length
+FROM(
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202206_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202207_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202208_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202209_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202210_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202211_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202212_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202301_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202302_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202303_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202304_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202305_cyclistic_usage_clean`
+)
+GROUP BY
+  member_casual,
+  day,
+  day_num
+ORDER BY
+  day_num,
+  member_casual;
+
+--Number of rentals, average rental period, and max rental length per month by user type
+
+SELECT 
+  member_casual,
+  EXTRACT(MONTH FROM started_at) AS month,
+  COUNT(*) AS number_of_rentals,
+  ROUND(AVG(TIMESTAMP_DIFF(ended_at, started_at, minute))) AS avg_length,
+  MAX(TIMESTAMP_DIFF(ended_at, started_at, minute)) AS max_rental_length
+FROM(
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202206_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202207_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202208_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202209_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202210_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202211_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202212_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202301_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202302_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202303_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202304_cyclistic_usage_clean`
+  UNION ALL
+  SELECT *
+  FROM `gda-capstone-project-1.cyclistic_usage_data.202305_cyclistic_usage_clean`
+)
+GROUP BY
+  member_casual,
+  month
+ORDER BY
+  month,
+  member_casual;

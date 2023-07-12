@@ -1,0 +1,15 @@
+member_casual,day,number_of_rentals,avg_length,max_rental_length
+casual,Friday,346558,27.0,32403
+member,Friday,501468,12.0,1500
+casual,Monday,257824,28.0,32035
+member,Monday,471399,12.0,1500
+casual,Saturday,455829,32.0,41387
+member,Saturday,452758,14.0,1560
+casual,Sunday,375639,33.0,33604
+member,Sunday,394550,14.0,1501
+casual,Thursday,313343,24.0,31024
+member,Thursday,564907,12.0,1500
+casual,Tuesday,270978,25.0,31086
+member,Tuesday,552539,12.0,1500
+casual,Wednesday,291902,24.0,35821
+member,Wednesday,579336,12.0,1500
